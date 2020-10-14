@@ -8,6 +8,10 @@ verify_ssl = true
 [packages]
 django = "*"
 djangorestframework = "*"
+shortuuid = "*"
+django-shortuuidfield = "*"
+mysqlclient = "*"
+djangorestframework-jwt = "*"
 
 [requires]
 python_version = "3.7"
