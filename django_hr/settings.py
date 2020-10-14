@@ -84,8 +84,18 @@ DATABASES = {
         'PORT': '3306',
         'USER': 'root',
         'PASSWORD': '888888'
+    },
+    'slave': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_hr_write',
+        'HOST': 'localhost',
+        'PORT': '8306',
+        'USER': 'root',
+        'PASSWORD': '888888'
     }
 }
+# 数据库读写分离配置
+DATABASE_ROUTERS = ["db_router.Router"]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
