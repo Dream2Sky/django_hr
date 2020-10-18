@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.auths.apps.AuthsConfig',
-    'apps.employee.apps.EmployeeConfig'
+    'apps.employee.apps.EmployeeConfig',
+    'apps.attend.apps.AttendConfig'
 ]
 
 MIDDLEWARE = [
@@ -85,17 +86,17 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '888888'
     },
-    'slave': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_hr_write',
-        'HOST': 'localhost',
-        'PORT': '8306',
-        'USER': 'root',
-        'PASSWORD': '888888'
-    }
+    # 'slave': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'django_hr_read',
+    #     'HOST': '192.168.4.46',
+    #     'PORT': '8306',
+    #     'USER': 'root',
+    #     'PASSWORD': '888888'
+    # }
 }
 # 数据库读写分离配置
-DATABASE_ROUTERS = ["db_router.Router"]
+# DATABASE_ROUTERS = ["db.db_router.Router"]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -122,7 +123,7 @@ AUTH_USER_MODEL = "auths.User"
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

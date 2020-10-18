@@ -4,7 +4,7 @@ from rest_framework import serializers, exceptions
 from shortuuidfield import ShortUUIDField
 
 from apps.employee.models import Employee, OrgUnit, OrgDepartment, Position, JobInformation
-from apps.utils.audit.serializers import AuditSerializer
+from apps.base.serializers import BaseHistoryModelSerializer
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
@@ -13,7 +13,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
         fields = ("id", "name", "number", "age", "gender", "identity_card", "mobile", "user")
 
 
-class OrganizationSerializer(serializers.ModelSerializer):
+class OrganizationSerializer(BaseHistoryModelSerializer):
     begin_date = serializers.DateField(default=datetime.now().date(), allow_null=True)
     end_date = serializers.DateField(default=datetime(year=2199, month=12, day=31).date(), allow_null=True)
     parent = ShortUUIDField(blank=True, null=True)
@@ -31,16 +31,16 @@ class OrgDepartmentSerializer(OrganizationSerializer):
         fields = ("id", "name", "number", "begin_date", "end_date", "parent", "unit")
 
 
-class PositionSerializer(serializers.ModelSerializer):
+class PositionSerializer(BaseHistoryModelSerializer):
     class Meta:
         model = Position
         fields = ("id", "name", "number", "begin_date", "end_date", "department")
 
 
-class JobInformationSerializer(serializers.ModelSerializer):
+class JobInformationSerializer(BaseHistoryModelSerializer):
 
     def validate(self, attrs):
-
+        attrs = super(JobInformationSerializer, self).validate(attrs)
         position = attrs.get("position")
         department = attrs.get("department")
         unit = attrs.get("unit")

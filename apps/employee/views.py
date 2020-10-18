@@ -1,11 +1,15 @@
+from django.http import Http404
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 
+from apps.auths.models import User
 from apps.base.views import BaseDataModelViewSet
 from apps.employee.models import Employee, OrgUnit, OrgDepartment, Position, JobInformation
 from apps.employee.serializers import EmployeeSerializer, OrgUnitSerializer, OrgDepartmentSerializer, \
     PositionSerializer, JobInformationSerializer
+from apps.utils import auth
+from apps.utils.employee import entry_status_employed
 
 
 class EmployeeViewSets(BaseDataModelViewSet):
@@ -72,3 +76,20 @@ class PositionViewSets(BaseDataModelViewSet):
 class JobInformationViewSets(BaseDataModelViewSet):
     queryset = JobInformation.objects.all()
     serializer_class = JobInformationSerializer
+
+    def perform_create(self, serializer):
+        from django.db import transaction
+
+        with transaction.atomic():
+            employee = serializer.validated_data.get("employee")
+            employee.entry_status = entry_status_employed
+
+            user = User.objects.create_user(username=employee.mobile, password=auth.generate_random_password())
+            employee.user = user
+
+            employee.save()
+
+            super(JobInformationViewSets, self).perform_create(serializer)
+
+    def destroy(self, request, *args, **kwargs):
+        raise Http404()

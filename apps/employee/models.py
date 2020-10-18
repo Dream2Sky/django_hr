@@ -5,7 +5,8 @@ from django.db.models import DO_NOTHING, SET_NULL, CASCADE
 
 from apps.auths.models import User
 from apps.base.models import BaseDataModel, BaseModel, BaseDataHistoryModel, NameNumberMixin
-from apps.utils.employee import gender_choices, id_type_choices, position_type_choices, position_status_choices
+from apps.utils.employee import gender_choices, id_type_choices, position_type_choices, position_status_choices, \
+    entry_status_choices, entry_status_not_employed
 
 
 class Employee(NameNumberMixin, BaseDataModel):
@@ -21,8 +22,11 @@ class Employee(NameNumberMixin, BaseDataModel):
 
     photo = models.CharField(max_length=100, null=True)
 
+    entry_status = models.PositiveIntegerField(choices=entry_status_choices, default=entry_status_not_employed)
+
     class Meta(object):
         db_table = "employee"
+        indexes = [models.Index(fields=["user"]), models.Index(fields=["mobile"])]
 
 
 class Organization(NameNumberMixin, BaseDataHistoryModel):
