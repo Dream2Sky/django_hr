@@ -12,6 +12,7 @@ shortuuid = "*"
 django-shortuuidfield = "*"
 mysqlclient = "*"
 djangorestframework-jwt = "*"
+coreapi = "*"
 
 [requires]
 python_version = "3.7"

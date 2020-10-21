@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import re_path, path, include
 from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework.documentation import include_docs_urls
 
 from django_hr.routers import router
 
@@ -23,4 +24,5 @@ from django_hr.routers import router
 urlpatterns = [
     re_path(r'^login/', obtain_jwt_token),
     path('api/v1/', include(router.urls)),
+    re_path(r'^docs/', include_docs_urls(title="django_hr apis", authentication_classes=[], permission_classes=[])),
 ]
