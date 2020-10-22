@@ -1,5 +1,5 @@
 #!/bin/bash
-cp -f /var/lib/jenkins/workspace/django_hr /root/web/django_hr
+/bin/cp -rf /var/lib/jenkins/workspace/django_hr /root/web/django_hr
 cd /root/web/django_hr || exit
 
 PROCESS=$(ps -e | grep uwsgi | awk '{printf "%d\n", $1}')
