@@ -11,6 +11,7 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_hr.settings')
+profile = os.environ.get("PROJECT_PROFILE", "dev")
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_hr.settings.%s' % profile)
 
 application = get_asgi_application()
