@@ -29,7 +29,7 @@ source /root/.local/share/virtualenvs/django_hr-W5BZcG1I/bin/activate
 python manage.py migrate
 
 cd /root/web/ || exit
-nohup /urs/bin/uwsgi --ini uwsgi.ini
+nohup /usr/local/bin/uwsgi --ini uwsgi.ini
 
 sleep 10s
 
