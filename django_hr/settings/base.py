@@ -78,14 +78,19 @@ WSGI_APPLICATION = 'django_hr.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+DB_NAME = 'django_hr'
+DB_USER = 'root'
+DB_PORT = '3306'
+DB_PASSWORD = '888888'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_hr',
+        'NAME': DB_NAME,
         'HOST': 'localhost',
-        'PORT': '3306',
-        'USER': 'root',
-        'PASSWORD': '888888'
+        'PORT': DB_PORT,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD
     },
     # 'slave': {
     #     'ENGINE': 'django.db.backends.mysql',
