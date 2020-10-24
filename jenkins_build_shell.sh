@@ -1,6 +1,12 @@
 #!/bin/bash
 
+echo "removing old project"
+rm -rf /root/web/django_hr
+
+echo "copy new project to web"
 /bin/cp -rf /var/lib/jenkins/workspace/django_hr /root/web/
+
+echo "change to new project"
 cd /root/web/django_hr || exit
 
 PROCESS=$(ps -e | grep uwsgi | awk '{printf "%d\n", $1}')
@@ -18,12 +24,12 @@ echo "finish kill"
 
 export BUILD_ID=dontKillMe
 
-pipenv install
-
+source /root/.local/share/virtualenvs/django_hr-W5BZcG1I/bin/activate
+/urs/bin/pipenv install
 python manage.py migrate
 
 cd /root/web/ || exit
-nohup uwsgi --ini uwsgi.ini
+nohup /urs/bin/uwsgi --ini uwsgi.ini
 
 sleep 10s
 
