@@ -25,7 +25,7 @@ echo "finish kill"
 export BUILD_ID=dontKillMe
 
 source /root/.local/share/virtualenvs/django_hr-W5BZcG1I/bin/activate
-/usr/local/bin/pipenv install
+/usr/local/bin/pipenv install --skip-lock
 python manage.py migrate
 
 cd /root/web/ || exit
