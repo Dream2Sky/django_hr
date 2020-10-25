@@ -17,3 +17,7 @@ DATABASES = {
         'PASSWORD': DB_PASSWORD
     }
 }
+
+REST_FRAMEWORK.update({
+    "DEFAULT_RENDERER_CLASSES": ('rest_framework.renderers.JSONRenderer',)
+})
