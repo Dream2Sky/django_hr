@@ -7,3 +7,8 @@
 4、员工打卡
 
 """
+
+if __name__ == "__main__":
+    url = "https://baidu.com/"
+    print(url.split("/"))
+    

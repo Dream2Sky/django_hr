@@ -5,8 +5,9 @@ from pytz import timezone
 from rest_framework import serializers
 from shortuuid import ShortUUID
 
-from apps.attend.models import PunchRecord
-from apps.employee.models import JobInformation, Employee
+from ..emp.models import Employee
+from ..job.models import JobInformation
+from .models import PunchRecord
 
 
 class PunchRecordSerializer(serializers.ModelSerializer):
@@ -23,7 +24,8 @@ class PunchRecordSerializer(serializers.ModelSerializer):
             if punch_time > end_time:
                 raise serializers.ValidationError("无效的打卡时间")
         else:
-            punch_time = datetime.datetime.now().replace(tzinfo=timezone(settings.TIME_ZONE))
+            punch_time = datetime.datetime.now().replace(
+                tzinfo=timezone(settings.TIME_ZONE))
 
         employee = attrs.get("employee")
         if not employee:
@@ -37,11 +39,6 @@ class PunchRecordSerializer(serializers.ModelSerializer):
         attrs["punch_time"] = punch_time
 
         return attrs
-
-
-
-
-
 
     class Meta:
         model = PunchRecord

@@ -16,7 +16,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 # BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))))
+BASE_DIR = os.path.dirname(os.path.dirname(
+    os.path.abspath(os.path.join(__file__, os.pardir))))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -39,13 +40,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.auths.apps.AuthsConfig',
-    'apps.employee.apps.EmployeeConfig',
-    'apps.attend.apps.AttendConfig'
 ]
 
+HR_APPS = [
+    'apps.app_configs.UserConfig',
+    'apps.app_configs.EmpConfig',
+    'apps.app_configs.OrgsConfig',
+    'apps.app_configs.JobConfig',
+    'apps.app_configs.AttendConfig',
+]
+INSTALLED_APPS += HR_APPS
+
 MIDDLEWARE = [
-    "middlewares.audit.AuditMiddleWare",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,8 +65,7 @@ ROOT_URLCONF = 'django_hr.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "auths.User"
+AUTH_USER_MODEL = "auth_user.User"
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -157,5 +162,7 @@ REST_FRAMEWORK = {
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=20),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
-    "JWT_RESPONSE_PAYLOAD_HANDLER": "apps.auths.views.jwt_response_payload_handler"
+    "JWT_RESPONSE_PAYLOAD_HANDLER": "apps.auth_user.serializers.jwt_response_payload_handler"
 }
+
+LOGIN_URL = "/api/v1/auths/views/login"

@@ -13,16 +13,52 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+# from django.contrib import admin
+import inspect
 from django.urls import re_path, path, include
-from rest_framework_jwt.views import obtain_jwt_token
-from rest_framework.documentation import include_docs_urls
+# from rest_framework.documentation import include_docs_urls
+#
+# from django_hr.routers import router
+import importlib
+import pkgutil
 
-from django_hr.routers import router
+from apis.views import OpenAPIView
+
+modules = list()
 
 
-urlpatterns = [
-    re_path(r'^login/', obtain_jwt_token),
-    path('api/v1/', include(router.urls)),
-    re_path(r'^docs/', include_docs_urls(title="django_hr apis", authentication_classes=[], permission_classes=[])),
-]
+def iter_services(path=None):
+    if isinstance(path, str):
+        path = [path]
+
+    for p in pkgutil.iter_modules(path=path):
+        module_name = f"{path[0]}{p.name}"
+        if p.ispkg:
+            iter_services(path=[f"{module_name}/"])
+            continue
+
+        modules.append(module_name)
+
+
+paths = list()
+
+
+def service_loader():
+    _paths = dict()
+    for module_path in modules:
+        module_path = module_path.replace("../", "")
+        module_path = module_path.replace("/", ".")
+        module = importlib.import_module(module_path)
+
+        for _name, _cls in inspect.getmembers(module, inspect.isclass):
+            if inspect.getmodule(_cls) == module and issubclass(_cls, OpenAPIView):
+                if getattr(_cls, "api_resolve"):
+                    _paths.update(_cls.api_resolve())
+
+    for k, v in _paths.items():
+        paths.append(v)
+
+
+iter_services("apis/")
+service_loader()
+urlpatterns = paths

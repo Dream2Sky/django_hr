@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='PunchRecord',
+            name='JobInformation',
             fields=[
                 ('create_time', models.DateTimeField(auto_now_add=True, verbose_name='创建时间')),
                 ('creator_id', models.CharField(max_length=100, verbose_name='创建人')),
@@ -26,22 +26,17 @@ class Migration(migrations.Migration):
                 ('delete_time', models.DateTimeField(null=True, verbose_name='删除时间')),
                 ('deleter_id', models.CharField(max_length=100, verbose_name='删除人')),
                 ('id', apps.fields.LowerCaseShortUUIDField(blank=True, editable=False, max_length=22, primary_key=True, serialize=False)),
-                ('punch_time', models.DateTimeField(db_index=True)),
-                ('punch_point', models.CharField(max_length=100, null=True)),
-                ('description', models.CharField(blank=True, max_length=100, null=True)),
+                ('begin_date', models.DateField()),
+                ('end_date', models.DateField()),
+                ('position_type', models.IntegerField(choices=[(0, '主任职'), (1, '兼职'), (2, '借调'), (3, '委派'), (4, '助勤'), (5, '挂职')])),
+                ('position_status', models.IntegerField(choices=[(0, '在职'), (1, '试用'), (2, '离职')])),
                 ('department', apps.fields.ForeignKeyWithOutDBConstraint(db_constraint=False, on_delete=django.db.models.deletion.CASCADE, to='orgs.orgdepartment')),
                 ('employee', apps.fields.ForeignKeyWithOutDBConstraint(db_constraint=False, on_delete=django.db.models.deletion.CASCADE, to='emp.employee')),
+                ('position', apps.fields.ForeignKeyWithOutDBConstraint(db_constraint=False, on_delete=django.db.models.deletion.CASCADE, to='orgs.position')),
+                ('unit', apps.fields.ForeignKeyWithOutDBConstraint(db_constraint=False, on_delete=django.db.models.deletion.CASCADE, to='orgs.orgunit')),
             ],
             options={
-                'db_table': 'punch_record',
+                'db_table': 'jobinformation',
             },
-        ),
-        migrations.AddIndex(
-            model_name='punchrecord',
-            index=models.Index(fields=['employee', 'punch_time'], name='punch_recor_employe_758810_idx'),
-        ),
-        migrations.AddIndex(
-            model_name='punchrecord',
-            index=models.Index(fields=['department', 'punch_time'], name='punch_recor_departm_3d4f84_idx'),
         ),
     ]
