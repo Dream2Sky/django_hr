@@ -23,42 +23,30 @@ import importlib
 import pkgutil
 
 from apis.views import OpenAPIView
+import django_hr.utils as sys_utils
+
 
 modules = list()
+sys_utils.iter_services("apis/", modules=modules)
+
+urlpatterns = sys_utils.service_loader(modules, OpenAPIView)
+
+# def service_loader():
+#     _paths = dict()
+#     for module_path in modules:
+#         module_path = module_path.replace("../", "")
+#         module_path = module_path.replace("/", ".")
+#         module = importlib.import_module(module_path)
+
+#         for _name, _cls in inspect.getmembers(module, inspect.isclass):
+#             if inspect.getmodule(_cls) == module and issubclass(_cls, OpenAPIView):
+#                 if getattr(_cls, "api_resolve"):
+#                     _paths.update(_cls.api_resolve())
+
+#     for k, v in _paths.items():
+#         paths.append(v)
 
 
-def iter_services(path=None):
-    if isinstance(path, str):
-        path = [path]
-
-    for p in pkgutil.iter_modules(path=path):
-        module_name = f"{path[0]}{p.name}"
-        if p.ispkg:
-            iter_services(path=[f"{module_name}/"])
-            continue
-
-        modules.append(module_name)
-
-
-paths = list()
-
-
-def service_loader():
-    _paths = dict()
-    for module_path in modules:
-        module_path = module_path.replace("../", "")
-        module_path = module_path.replace("/", ".")
-        module = importlib.import_module(module_path)
-
-        for _name, _cls in inspect.getmembers(module, inspect.isclass):
-            if inspect.getmodule(_cls) == module and issubclass(_cls, OpenAPIView):
-                if getattr(_cls, "api_resolve"):
-                    _paths.update(_cls.api_resolve())
-
-    for k, v in _paths.items():
-        paths.append(v)
-
-
-iter_services("apis/")
-service_loader()
-urlpatterns = paths
+# iter_services("apis/")
+# service_loader()
+# urlpatterns = paths

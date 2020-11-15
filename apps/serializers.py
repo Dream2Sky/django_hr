@@ -14,3 +14,28 @@ class BaseHistoryModelSerializer(serializers.ModelSerializer):
 
         if begin_date > end_date:
             raise serializers.ValidationError("结束时间必须大于或等于开始时间")
+
+
+class CommonModelSerializer(serializers.Serializer):
+    model = serializers.CharField(
+        required=True, error_messages={"required": "invalid model name"})
+
+
+class CommonModelListSerializer(CommonModelSerializer):
+    filter_dict = serializers.JSONField(
+        required=True, error_messages={"required": "invalid filter_dict"})
+    page_index = serializers.IntegerField(default=1)
+    page_size = serializers.IntegerField(default=20)
+
+
+class CommonModelGetSerializer(CommonModelSerializer):
+    id_ = serializers.IntegerField(required=True)
+
+
+class CommonModelCreateSerializer(CommonModelSerializer):
+    info = serializers.JSONField(
+        required=True, error_messages={"required": "invalid info"})
+
+
+class CommonModelEditSerializer(CommonModelGetSerializer, CommonModelCreateSerializer):
+    pass

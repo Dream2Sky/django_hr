@@ -51,13 +51,17 @@ HR_APPS = [
 ]
 INSTALLED_APPS += HR_APPS
 
+# from django.middleware.common import CommonMiddleware
+
 MIDDLEWARE = [
+    # 'middlewares.common.OpenAPIResponseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'middlewares.common.OpenAPIResponseMiddleware',
 ]
 
 ROOT_URLCONF = 'django_hr.urls'

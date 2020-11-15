@@ -2,6 +2,7 @@ import inspect
 
 
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 class OpenApiDecorate:
 
@@ -16,7 +17,12 @@ class OpenApiDecorate:
             if self.is_login and hasattr(s1, "request"):
                 if hasattr(s1.request, "authenticators"):
                     s1.request.authenticators = []
-            return original_func(s1, *arg, **kwargs)
+
+            result = original_func(s1, *arg, **kwargs)
+            if isinstance(result, Response):
+                return result
+            else:
+                return Response(result)
 
         _doc = inspect.getdoc(original_func)
         _description = _doc.split("\n")[0] if _doc else ""

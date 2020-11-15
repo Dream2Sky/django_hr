@@ -6,6 +6,10 @@ from django.views.decorators.csrf import csrf_exempt
 import inspect
 from functools import update_wrapper
 
+from apps.serializers import CommonModelCreateSerializer
+import django_hr.environment as env
+from django_hr.libs.open_api import open_api
+
 
 class OpenAPIView(APIView):
 
@@ -30,8 +34,9 @@ class OpenAPIView(APIView):
                 view.view_initkwargs = initkwargs
                 update_wrapper(view, cls, updated=())
                 update_wrapper(view, cls.dispatch, assigned=())
-                cls.paths[_method.__api_path__] = path(_method.__api_path__, csrf_exempt(view))
-            
+                cls.paths[_method.__api_path__] = path(
+                    _method.__api_path__, csrf_exempt(view))
+
         return cls.paths
 
     def dispatch(self, request, *args, **kwargs):
@@ -76,3 +81,23 @@ class OpenAPIView(APIView):
             return self.http_method_not_allowed
 
         return api
+
+
+class CURDBaseAPIView(OpenAPIView):
+
+    @open_api(name="common.model.create")
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        serializer = CommonModelCreateSerializer(data=data)
+        if not serializer.is_valid():
+            raise Exception(serializer.error_messages)
+
+        model_name = serializer.validated_data.get("model")
+        if model_name not in env.environment.model_dict:
+            raise Exception("invalid model name")
+
+        model_cls = env.environment.model_dict[model_name]
+        result = model_cls.objects.create(
+            **serializer.validated_data.get("info"))
+
+        return {"id": result.id}
