@@ -1,0 +1,108 @@
+{"time": "2020-11-18 02:00:30", "level": "ERROR",  "path": "/api/v1/common.model.create", "method": "POST",  "message": "message", "track_info": "Traceback (most recent call last):
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Apps\django\django_hr\apis\views.py", line 29, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\django\django_hr\apis\views.py", line 62, in dispatch
+    response = self.handle_exception(exc)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Apps\django\django_hr\apis\views.py", line 59, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Apps\django\django_hr\django_hr\libs\open_api.py", line 21, in _api_func
+    result = original_func(s1, *arg, **kwargs)
+  File "D:\Apps\django\django_hr\apis\views.py", line 93, in create
+    raise Exception(serializer.error_messages)
+Exception: {'required': 'This field is required.', 'null': 'This field may not be null.', 'invalid': 'Invalid data. Expected a dictionary, but got {datatype}.'}
+"}
+Traceback (most recent call last):
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Apps\django\django_hr\apis\views.py", line 29, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\django\django_hr\apis\views.py", line 62, in dispatch
+    response = self.handle_exception(exc)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Apps\django\django_hr\apis\views.py", line 59, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Apps\django\django_hr\django_hr\libs\open_api.py", line 21, in _api_func
+    result = original_func(s1, *arg, **kwargs)
+  File "D:\Apps\django\django_hr\apis\views.py", line 93, in create
+    raise Exception(serializer.error_messages)
+Exception: {'required': 'This field is required.', 'null': 'This field may not be null.', 'invalid': 'Invalid data. Expected a dictionary, but got {datatype}.'}
+Stack (most recent call last):
+  File "c:\Users\Petrel\.vscode-insiders\extensions\ms-python.python-2020.11.358366026\pythonFiles\lib\python\debugpy\_vendored\pydevd\_pydev_bundle\pydev_monkey.py", line 827, in __call__
+    ret = self.original_func(*self.args, **self.kwargs)
+  File "c:\program files\python37\lib\threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+  File "c:\program files\python37\lib\threading.py", line 926, in _bootstrap_inner
+    self.run()
+  File "c:\program files\python37\lib\threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "c:\program files\python37\lib\socketserver.py", line 650, in process_request_thread
+    self.finish_request(request, client_address)
+  File "c:\program files\python37\lib\socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "c:\program files\python37\lib\socketserver.py", line 720, in __init__
+    self.handle()
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\servers\basehttp.py", line 174, in handle
+    self.handle_one_request()
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\servers\basehttp.py", line 197, in handle_one_request
+    handler.run(self.server.get_app())
+  File "c:\program files\python37\lib\wsgiref\handlers.py", line 137, in run
+    self.result = application(self.environ, self.start_response)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\contrib\staticfiles\handlers.py", line 76, in __call__
+    return self.application(environ, start_response)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\wsgi.py", line 133, in __call__
+    response = self.get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\base.py", line 128, in get_response
+    response = self._middleware_chain(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\utils\deprecation.py", line 114, in __call__
+    response = response or self.get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\utils\deprecation.py", line 114, in __call__
+    response = response or self.get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\utils\deprecation.py", line 114, in __call__
+    response = response or self.get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\utils\deprecation.py", line 114, in __call__
+    response = response or self.get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\utils\deprecation.py", line 114, in __call__
+    response = response or self.get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\utils\deprecation.py", line 114, in __call__
+    response = response or self.get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\utils\deprecation.py", line 114, in __call__
+    response = response or self.get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\django\django_hr\middlewares\log.py", line 58, in __call__
+    response = self.get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "c:\Users\Petrel\.virtualenvs\django_hr-tWGH_pyT\lib\site-packages\django\core\handlers\base.py", line 337, in process_exception_by_middleware
+    response = middleware_method(request, exception)
+  File "D:\Apps\django\django_hr\middlewares\common.py", line 50, in process_exception
+    logger.error(msg="message", exc_info=exc, stack_info=True)
